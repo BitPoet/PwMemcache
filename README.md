@@ -90,7 +90,7 @@ echo $memcache->renderFile('partials/primary-nav.php', 3600);
 	+ Please note that `$filename` receives API variables already (you don’t have to provide them).
 
 - int|string `$expire`
-	 - Specify one of the `PwMemcache::expire*` constants.
+	 - Specify one of the `PwMemcache::expire*` constants (`PwMemcache::expireDaily` for 24 hours lifetime or `PwMemcache::expireSave` to clear the entry automatically if any page is saved).
 	 - Specify the future date you want it to expire (as unix timestamp )
 	 - Specify `PwMemcache::expireNever` to prevent expiration.
 	 - Specify `PwMemcache::expireSave` to expire when any page or template is saved.
@@ -106,6 +106,10 @@ echo $memcache->renderFile('partials/primary-nav.php', 3600);
 *Return*
 
 string|bool Rendered template file or boolean false on fatal error (and throwExceptions disabled)
+
+## ToDo
+
+Add automatic cache clearing based on template IDs or selectors like WireCache has.
 
 ## License
 
