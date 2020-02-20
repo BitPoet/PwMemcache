@@ -39,9 +39,26 @@ Retrieve a value from the cache by the given name. If $func is given and no cach
 
 Alternatively, you can pass an array of names to the method. In that case, an associative array of names and values is returned, with only those keys present that were found in the cache. If you do that, you must not pass a $func parameter.
 
+```PHP
+$stats = $memcache->cget($name, 600, function() use($pages) {
+	return "<span class='status'>Site has" . $pages->count() . " pages</span>";
+});
+```
+
 #### $memcache->cset($name, $expire, $value)
 
 Save the value in the cache with the given name as the key and the specified expire time. If $expire is not set, PwMemcache::expireDaily is assumed (24h).
+
+```PHP
+// Save a string value in the cache (here the HTML of a rendered page):
+$memcache->cset('nav', 600, $pages->get('/navigation/')->render());
+// Save an array value:
+$orders = [];
+foreach($pages->find('template=order') as $order) {
+  $orders[$order->id] = $order->sum;
+}
+$memcache->cset('orders', 300, $orders);
+```
 
 #### $memcache->delete($name)
 
@@ -70,7 +87,7 @@ echo $memcache->renderFile('partials/primary-nav.php', 3600);
   + Can be full path/file, or dir/file relative to current work directory (which is typically /site/templates/).
 	+ If providing a file relative to current dir, it should not start with "/". 
 	+ File must be somewhere within site/templates/, site/modules/ or wire/modules/, or provide your own `allowedPaths` option. 
-	+ Please note that $filename receives API variables already (you don’t have to provide them).
+	+ Please note that `$filename` receives API variables already (you don’t have to provide them).
 
 - int|string `$expire`
 	 - Specify one of the `PwMemcache::expire*` constants.
