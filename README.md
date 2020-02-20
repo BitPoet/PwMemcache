@@ -11,9 +11,9 @@ Compatible with ProcessWire 3.x
 Beta, use with care
 
 ## Prerequisites
-The Memcache extension must be installed.
+The Memcache extension must be installed and enabled in PHP.
 
-### Notice
+#### Notice
 There are two quite similar libraries, Memcache and Memcache*d*. The former is the one this module works with. It may be a starting point for anybody wanting to create a similar module for Memcache*d*.
 
 ## Usage
